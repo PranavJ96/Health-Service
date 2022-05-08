@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SOS Helpdesk</title>
+  </head>
+  <style>
+    body{background: linear-gradient(#b0a1eb, #c4c8f5,white);
+        background-attachment: fixed;}
+    .listHeader{font-size: 22px;font-weight: bold;cursor: pointer;margin-top: 50px;padding:10px;}
+    tr{border: 1px solid black;}
+    td{border: 1px solid black;padding:5px;}
+    table{border:1px solid black;background: white;}
+    button{background-color:green; color:black;padding:10px;font-size: 20px;margin-bottom:10px;}
+</style>
+  <body>
+    <center>
+        <h1>Emergency Service</h1>
+        <button onclick="issueResolved()">Issue Resolved</button>
+        <table id="myTable">
+          <tr>
+              <td>Address</td>
+              <td>Maps</td>
+              <td>Nearby Hospitals</td>
+          </tr>
+      </table>
+      </center>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    function issueResolved(){
+    var table = document.getElementById("myTable");
+    table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML; 
+    socket.emit('test',"herehere");
+    }
+</script>
+<script>
+    var socket = io();
+    socket.on('SOS', function(msg) {
+        
+    var table = document.getElementById("myTable");
+    table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML; 
+    patientLocation = msg.location
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    cell1.innerHTML = msg.address;
+    cell2.innerHTML = "<a href='"+patientLocation+"'>Link</a>";
+    innerTable = "<table id='innerTable'><tr><td>Address</td><td>Distance</td><td>Google Link</td></tr><tr id='innerbodyRow'> </tr></table>"
+    cell3.innerHTML = innerTable;   
+    var innertable = document.getElementById("innerTable");
+    for(hospital in msg.nearByHospitals){
+    var innerrow = innertable.insertRow(-1);
+    var innercell1 = innerrow.insertCell(0);
+    var innercell2 = innerrow.insertCell(1);
+    var innercell3 = innerrow.insertCell(2);
+    innercell1.innerHTML = msg.nearByHospitals[hospital].name;
+    innercell2.innerHTML = msg.nearByHospitals[hospital].distance;
+    innercell3.innerHTML = "<a href='"+msg.nearByHospitals[hospital].link+"'>Link</a>";
+    }
+    
+    // msg.nearByHospitals;
+    window.scrollTo(0, 0);
+  });
+
+  </script>
+  </body>
+</html>

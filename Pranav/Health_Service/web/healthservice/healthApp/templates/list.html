@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health Application</title>
+</head>
+<body>
+  <center>
+    <h1>Health Service</h1>
+    <h3 class="listHeader">List of nearby hospitals that are open now.</h3>
+    <table>
+      <tr>
+          <th>NAME</th>
+          <th>DISTANCE</th>
+          <th>LINK</th>
+      </tr>
+      {% for hospital in data %}
+      <tr> 
+          <td>{{ hospital.name }}</td>
+          <td>{{ hospital.distance }}</td>
+          <td><a href={{hospital.link}}>Maps</a></td>
+      </tr>
+      {% endfor %}
+  </table>
+  </center>
+</body>
+<style>
+    body{background: linear-gradient(#b0a1eb, #c4c8f5,white);
+        background-attachment: fixed;}
+    .listHeader{font-size: 22px;font-weight: bold;cursor: pointer;margin-top: 50px;padding:10px;}
+    tr{border: 1px solid black;}
+    td{border: 1px solid black;padding:5px;}
+    table{border:1px solid black;background: white;}
+</style>
+</html>
