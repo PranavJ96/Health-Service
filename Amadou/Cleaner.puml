@@ -1,0 +1,19 @@
+@startuml NearByHospitals
+
+left to right direction
+
+actor "Alex" as fc
+
+rectangle System {
+
+  usecase "Enter Current Location" as UC1
+
+  usecase "Find Nearest Open Hospital Location" as UC2
+
+}
+
+fc --> UC1
+
+UC1 --> UC2
+
+@enduml
