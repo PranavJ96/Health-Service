@@ -8,14 +8,18 @@
         background-attachment: fixed;}
     .listHeader{font-size: 22px;font-weight: bold;cursor: pointer;margin-top: 50px;padding:10px;}
     tr{border: 1px solid black;}
+    .chatButton{
+      padding:5px;font-size: 16px; cursor: pointer; float:right;background-color: #5acbcc;
+    }
     td{border: 1px solid black;padding:5px;}
     table{border:1px solid black;background: white;}
-    button{background-color:green; color:black;padding:10px;font-size: 20px;margin-bottom:10px;}
+    button{background-color:green; color:black;padding:10px;font-size: 20px;margin-bottom:10px;cursor:pointer;}
 </style>
   <body>
     <center>
         <h1>Emergency Service</h1>
         <button onclick="issueResolved()">Issue Resolved</button>
+        <button class="chatButton" onclick="chatScreen()">Chat Now</button>
         <table id="myTable">
           <tr>
               <td>Address</td>
@@ -27,6 +31,9 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
+function chatScreen(){
+  window.open('http://localhost:5000/', '_blank').focus();
+}
     function issueResolved(){
     var table = document.getElementById("myTable");
     table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML; 
